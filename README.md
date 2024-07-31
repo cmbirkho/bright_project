@@ -5,10 +5,13 @@ Initially dbt was deployed as a lambda layer and the dbt project files stored in
 
 ## Deployment Instructions
 1. Setup environment variable. In app.py replace `os.getenv('MY_AWS_ACCOUNT_ID')` with you AWS account number or setup the environment variable. 
-2. Activate the projects .venv in your terminal 
-3. Run `cdk bootstrap` in your terminal
-4. Run `cdk synth` in your terminal
-5. Deploy the stack by running `cdk deploy` in your terminal
+2. Install AWS CLI and input your credentials by running `aws configure`
+3. Install Node.js `nvm install 20`
+4. Install AWS CDK CLI `npm install -g aws-cdk`
+5. Clone the repo `git clone <repository-url>`
+6. Change to repo directory `cd <repository-directory>`
+7. Install dependencies `npm install`
+9. Deploy the stack `cdk deploy`
 * CDK Material
     * https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html
     * https://docs.aws.amazon.com/cdk/v2/guide/hello_world.html
@@ -55,6 +58,8 @@ Our infrastructure was designed with the goal of limiting integration errors to 
 
 ## Longterm Considerations
 In the longerterm I would recommend a Lakehouse architecture to support these data feeds in addition to various analytics capabilities required by a growing business. A Lakehouse has several advantages X. 
+
+Specifically for this pipeline the following 
 
 ### Architecture *(not an exhaustive list)*
 * AWS CDK

@@ -24,8 +24,7 @@ class BrightProjectStack(Stack):
         """
         Stack for processing pbright data. 
         Includes: 
-            - IAM: 
-                - pbright-role which is used for all assets in the pipeline
+            - IAM:
             - S3: 
             - Glue Crawler: 
             - Lambda:
@@ -149,9 +148,4 @@ class BrightProjectStack(Stack):
             )
         )
         schedule_rule.add_target(aws_events_targets.LambdaFunction(athena_lambda_function))
-
-
-        # Output the S3 bucket name and Lambda function name
-        # CfnOutput(self, "pbrightBucket", value=bucket.bucket_name)
-        # CfnOutput(self, "TriggerDBTRunLambda", value=dbt_lambda_function.function_name)
 

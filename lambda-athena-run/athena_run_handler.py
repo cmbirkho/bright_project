@@ -3,6 +3,9 @@ import boto3
 import time
 from int_salesforce_leads import int_salesforce_leads_1, int_salesforce_leads_2
 from fact_leads import fact_leads_1, fact_leads_2
+from int_credentials import int_credentials_1, int_credentials_2
+from int_facility_details import int_facility_details_1, int_facility_details_2
+from int_operations import int_operations_1, int_operations_2
 
 def execute_athena_query(athena_client, query, s3_output):
     response = athena_client.start_query_execution(
@@ -37,7 +40,14 @@ def lambda_handler(event, context):
         int_salesforce_leads_1.replace('\n', ''),
         int_salesforce_leads_2.replace('\n', ''),
         fact_leads_1.replace('\n', ''),
-        fact_leads_2.replace('\n', '')
+        fact_leads_2.replace('\n', ''),
+        int_credentials_1.replace('\n', ''),
+        int_credentials_2.replace('\n', ''),
+        int_facility_details_1.replace('\n', ''),
+        int_facility_details_2.replace('\n', ''),
+        int_operations_1.replace('\n', ''),
+        int_operations_2.replace('\n', '')
+
     ]
     
     results = []
