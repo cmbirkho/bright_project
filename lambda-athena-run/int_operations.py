@@ -4,10 +4,10 @@ int_operations_1 = 'DROP TABLE IF EXISTS pbright.int_operations;'
 int_operations_2 = """
 CREATE TABLE pbright.int_operations AS 
     SELECT 
-        operation AS operator 
+        "operation name" AS operator
+        , operation AS operation_id 
         , type AS facility_type 
         , "facility id" AS facility_id
-        , "operation name" AS operation_name
         , status 
         , address 
         , city 
