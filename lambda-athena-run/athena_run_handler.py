@@ -26,11 +26,12 @@ def execute_athena_query(athena_client, query, s3_output):
             break
         
         time.sleep(5)
-    
+
     if status == 'SUCCEEDED':
         return f"Query succeeded, results are available at {s3_output}{query_execution_id}.csv"
     else:
-        raise Exception(f"Query {status}")
+        error_message = response['QueryExecution']['Status']['StateChangeReason']
+        raise Exception(f"Query {status}, Message: {error_message}")
 
 def lambda_handler(event, context):
     athena = boto3.client('athena')

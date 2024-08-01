@@ -3,7 +3,6 @@ int_operations_1 = 'DROP TABLE IF EXISTS pbright.int_operations;'
 
 int_operations_2 = """
 CREATE TABLE pbright.int_operations AS 
-
     SELECT 
         operation AS operator 
         , type AS facility_type 
@@ -27,6 +26,7 @@ CREATE TABLE pbright.int_operations AS
             WHEN preschool = 'Y' THEN 'Preschool'
             WHEN school = 'Y' THEN 'School-Age'
             END AS age_type
+        , CURRENT_DATE AS ingestion_date_utc
         
     FROM pbright.raw_source_3
 

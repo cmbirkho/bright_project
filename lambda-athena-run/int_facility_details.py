@@ -1,9 +1,8 @@
 
-int_facility_details_1 = 'DROP TABLE IF EXISTS pbright.int_facility_details;'
+int_facility_details_1 = "DROP TABLE IF EXISTS pbright.int_facility_details;"
 
 int_facility_details_2 = """
-CREATE TABLE int_facility_details AS 
-    
+CREATE TABLE pbright.int_facility_details AS 
     WITH 
     cte AS (
         SELECT
@@ -17,7 +16,7 @@ CREATE TABLE int_facility_details AS
             , phone 
             , email
             , CASE WHEN UPPER("accepts subsidy") = 'ACCEPTS SUBSIDY' THEN 'Y' ELSE 'N' END AS accepts_financial_aid
-            , "year round" AS year_round -- could be curriculum_type
+            , "year round" AS year_round
             , CASE 
                 WHEN UPPER(REGEXP_EXTRACT("Ages Accepted 1", '^([^(]+)')) LIKE '%TODDLERS%' THEN 'Toddlers'
                 WHEN UPPER(REGEXP_EXTRACT("Ages Accepted 1", '^([^(]+)')) LIKE '%PRESCHOOL%' THEN 'Preschool'
@@ -25,37 +24,37 @@ CREATE TABLE int_facility_details AS
                 WHEN UPPER(REGEXP_EXTRACT("Ages Accepted 1", '^([^(]+)')) LIKE '%INFANTS%' THEN 'Infants'
                 END AS age_type
             , CONCAT_WS(', ', 
-            CASE 
-                WHEN REGEXP_LIKE("Mon", '\d') THEN 'Mon: Open' 
-                ELSE 'Mon: Closed' 
-            END,
-            CASE 
-                WHEN REGEXP_LIKE("Tues", '\d') THEN 'Tues: Open' 
-                ELSE 'Tues: Closed' 
-            END,
-            CASE 
-                WHEN REGEXP_LIKE("Wed", '\d') THEN 'Wed: Open' 
-                ELSE 'Wed: Closed' 
-            END,
-            CASE 
-                WHEN REGEXP_LIKE("Thurs", '\d') THEN 'Thurs: Open' 
-                ELSE 'Thurs: Closed' 
-            END,
-            CASE 
-                WHEN REGEXP_LIKE("Friday", '\d') THEN 'Fri: Open' 
-                ELSE 'Fri: Closed' 
-            END,
-            CASE 
-                WHEN REGEXP_LIKE("Saturday", '\d') THEN 'Sat: Open' 
-                ELSE 'Sat: Closed' 
-            END,
-            CASE 
-                WHEN REGEXP_LIKE("Sunday", '\d') THEN 'Sun: Open' 
-                ELSE 'Sun: Closed' 
-            END
-        ) AS schedule
+                CASE 
+                    WHEN REGEXP_LIKE("Mon", '\d') THEN 'Mon: Open' 
+                    ELSE 'Mon: Closed' 
+                END,
+                CASE 
+                    WHEN REGEXP_LIKE("Tues", '\d') THEN 'Tues: Open' 
+                    ELSE 'Tues: Closed' 
+                END,
+                CASE 
+                    WHEN REGEXP_LIKE("Wed", '\d') THEN 'Wed: Open' 
+                    ELSE 'Wed: Closed' 
+                END,
+                CASE 
+                    WHEN REGEXP_LIKE("Thurs", '\d') THEN 'Thurs: Open' 
+                    ELSE 'Thurs: Closed' 
+                END,
+                CASE 
+                    WHEN REGEXP_LIKE("Friday", '\d') THEN 'Fri: Open' 
+                    ELSE 'Fri: Closed' 
+                END,
+                CASE 
+                    WHEN REGEXP_LIKE("Saturday", '\d') THEN 'Sat: Open' 
+                    ELSE 'Sat: Closed' 
+                END,
+                CASE 
+                    WHEN REGEXP_LIKE("Sunday", '\d') THEN 'Sun: Open' 
+                    ELSE 'Sun: Closed' 
+                END
+            ) AS schedule
         
-        FROM raw_source_2
+        FROM pbright.raw_source_2
     )
     SELECT * 
         , CASE 
@@ -70,7 +69,5 @@ CREATE TABLE int_facility_details AS
             WHEN age_type = 'School-Age' THEN NULL
             WHEN age_type = 'Infants' THEN 11
             END AS max_age_months
-    FROM cte
-;
-
-"""
+        , CURRENT_DATE AS ingestion_date_utc
+    FROM cte;"""

@@ -47,6 +47,7 @@ CREATE TABLE pbright.int_salesforce_leads
         , CASE 
             WHEN regexp_like(website, '^(https?://)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,6}(/.*)?$') THEN website
             ELSE NULL END AS website
+        , CURRENT_DATE AS ingestion_date_utc
         , cast(coalesce(
                 try(parse_datetime(is_converted, 'MM/dd/yy HH:mm')),
                 try(parse_datetime(is_converted, 'MM/dd/yy'))) AS date) AS converted_date

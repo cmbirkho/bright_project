@@ -104,7 +104,7 @@ class BrightProjectStack(Stack):
             table_prefix="raw_",
             description="pbright raw data crawler",
             schedule={
-                "scheduleExpression": "cron(0 12 * * ? *)"
+                "scheduleExpression": "cron(0 */6 * * *)" # every 6 hours
             },
             classifiers=[],
             schema_change_policy={
