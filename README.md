@@ -18,7 +18,7 @@ Initially, dbt was deployed as a lambda layer and the dbt project files stored i
     * https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html
     * https://docs.aws.amazon.com/cdk/v2/guide/hello_world.html
 
-Note: currently the Glue Crawler is scheduled to run every 6 hours and the Lambda function is scheduled to run everyday 12PM UTC (5AM PST). You may not want to wait for these schedules to take place. If that's the case please proceed by running the Glue Crawler named pbrightCrawler and letting it complete. After the crawler is complete then run the Lambda named AthenaQueryLambda to create the new tables. This can be down through the AWS console.
+Note: currently the Glue Crawler is scheduled to run every 6 hours and the Lambda function is scheduled to run everyday 12PM UTC (5AM PST). You may not want to wait for these schedules to take place. If that's the case please proceed by running the Glue Crawler named pbrightCrawler and letting it complete. After the crawler is complete then run the Lambda named AthenaQueryLambda to create the new tables. This can be done through the AWS console.
 
 ## Infrastructure
 Our infrastructure was designed with the goal of limiting integration errors to maximize time to design the data model and take advantage of serverless technologies to limit cost while meeting the project requirements: 1) Files will be loaded at various times 2) File schemas are subject to change at any given time 3) New data will need to be available early next day
